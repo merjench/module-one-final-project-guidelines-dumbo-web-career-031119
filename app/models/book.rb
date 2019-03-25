@@ -31,9 +31,15 @@ class Book < ActiveRecord::Base
   end
 
   def self.popular_books
-    self.where("rating >= ?", 5).each do |book|
+    books = self.all.select do |book|
+      book.rating >= 5
+    end
+    books.each do |book|
       puts book.name
-    end 
+    end
+    # self.where("rating >= ?", 5).each do |book|
+    #   puts book.name
+    # end
   end
 
   def self.shows_by_alphabetical_order

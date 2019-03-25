@@ -82,6 +82,7 @@ def main_menu_option
     main_menu_option = prompt.select("") do |menu|
     menu.choice "Today's Top Picks", -> {Book.popular_books}
     menu.choice "View All books", -> {all_current_books_list}
+    menu.choice "View Checkout Books", -> {return_book}
     # menu.choice "Create New List", -> {create_new_book_list}
     # # x.choice "Titles You Saved", -> {user_saved_books}
     # # x.choice "Update a Book", -> {update_book}
@@ -89,12 +90,41 @@ def main_menu_option
     # x.choice "User Menu", -> {user_menu}
     # menu.choice "Review a Book", -> {review_book}
     menu.choice "Update Your Bio", -> {update_bio}
-    # menu.choice "Checkout", -> {checkout}
+    menu.choice "Checkout", -> {checkout}
     menu.choice "Exit", -> {quit}
     menu.choice "Delete Your Account", -> {delete_account}
     end
   end
 
+  def checkout
+    prompt = prompt_method
+    book_name = prompt.select ("") do |menu|
+      Book.shows_by_alphabetical_order.each do |book|
+        menu.choice book.name
+      end
+    end
+    book = Book.find_by(name: book_name)
+    checkout = Checkout.create(user_id: $current_user.id, book_id: book.id)
+  end
+
+
+  def return_book
+    if $current_user.books.count == 0
+      puts "You don't have any books checked out"
+      return
+    end 
+    prompt = prompt_method
+    book_name = prompt.select ("") do |menu|
+      $current_user.books.each do |book|
+        menu.choice book.name
+      end
+    end
+    puts book_name
+    book = Book.find_by(name: book_name)
+    checkout = Checkout.find_by(user_id: $current_user, book_id: book.id)
+    checkout.delete
+    main_menu_option
+  end
 
     # def popular_books
     #   Book.popular_books.each do |book|
