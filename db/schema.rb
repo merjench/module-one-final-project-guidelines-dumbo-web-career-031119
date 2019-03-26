@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_22_210806) do
+ActiveRecord::Schema.define(version: 2019_03_26_163343) do
 
   create_table "books", force: :cascade do |t|
     t.string "name"
     t.string "author"
     t.float "price"
     t.string "subject"
+    t.integer "rating"
   end
 
   create_table "checkouts", force: :cascade do |t|
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 2019_03_22_210806) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.text "bio"
+    t.text "review"
   end
 
 end

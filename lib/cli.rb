@@ -1,7 +1,7 @@
 
 
 def greet
-  puts 'Welcome to YourBooks App, the best resource for audio books in the world!'
+  puts 'Welcome to YourBooks App!'
 end
 
 def run
