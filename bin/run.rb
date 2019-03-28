@@ -3,20 +3,21 @@ require_relative '../config/environment'
 require 'pry'
 system 'clear'
 # $prompt = TTY::Prompt.new
+
 $current_user
-#
-# def graph
-#   puts "       .--.                   .---.
-#    .---|__|           .-.     |~~~|
-# .--|===|--|_          |_|     |~~~|--.
-# |  |===|  |'\     .---!~|  .--|   |--|
-# |%%|   |  |.'\    |===| |--|%%|   |  |
-# |%%|   |  |\.'\   |   | |__|  |   |  |
-# |  |   |  | \  \  |===| |==|  |   |  |
-# |  |   |__|  \.'\ |   |_|__|  |~~~|__|
-# |  |===|--|   \.'\|===|~|--|%%|~~~|--|
-# ^--^---'--^    `-'`---^-^--^--^---'--'"
-# end
+
+def graph
+  puts "       .--.                   .---.
+   .---|__|           .-.     |~~~|
+.--|===|--|_          |_|     |~~~|--.
+|  |===|  |'\     .---!~|  .--|   |--|
+|%%|   |  |.'\    |===| |--|%%|   |  |
+|%%|   |  |\.'\   |   | |__|  |   |  |
+|  |   |  | \  \  |===| |==|  |   |  |
+|  |   |__|  \.'\ |   |_|__|  |~~~|__|
+|  |===|--|   \.'\|===|~|--|%%|~~~|--|
+^--^---'--^    `-'`---^-^--^--^---'--'"
+end
 
 puts "Welcome to YourBooks App!"
 
@@ -26,7 +27,8 @@ end
 
 
 def welcome
-  system 'clear'
+  graph
+  # system 'clear'
   prompt = prompt_method
   prompt.select("") do |welcome|
     welcome.choice "Sign Up", -> {sign_up}
@@ -41,6 +43,8 @@ def sign_up
   bio = prompt.ask('What is your bio?')
   if User.find_by(name: name) != nil
     puts "Sorry, username is taken. Try again."
+    welcome
+    return
   else
     $current_user = User.create(name: name, bio: bio)
     puts "You have signed up and successfully logged in. Enjoy!"
@@ -113,6 +117,7 @@ def main_menu_option
   def return_book
     if $current_user.books.count == 0
       puts "You don't have any books checked out"
+      main_menu_option
       return
     end
     prompt = prompt_method
