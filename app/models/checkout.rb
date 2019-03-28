@@ -2,8 +2,11 @@ require 'pry'
 
 class Checkout < ActiveRecord::Base
 
-  belongs_to :book
+  belongs_to :book  # returns book instance that was checked out at this time 
+
   belongs_to :user
+
+
 
   def can_be_instantiated_and_then_saved (name, author, price, subject, rating)
     book = Book.create(name: name, author: author, price: price, subject: subject, rating: rating)

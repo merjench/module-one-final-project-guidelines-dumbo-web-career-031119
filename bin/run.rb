@@ -1,3 +1,4 @@
+
 require_relative '../config/environment'
 require 'pry'
 system 'clear'
@@ -112,7 +113,7 @@ def main_menu_option
     if $current_user.books.count == 0
       puts "You don't have any books checked out"
       return
-    end 
+    end
     prompt = prompt_method
     book_name = prompt.select ("") do |menu|
       $current_user.books.each do |book|
@@ -137,7 +138,7 @@ def main_menu_option
     prompt = prompt_method
 
     prompt.select("") do |list|
-      list.choice "Show by alphabetical Order", -> {shows_by_alphabetical_order}
+      list.choice "Show by alphabetical Order", -> {Book.shows_by_alphabetical_order}
       list.choice "Search by book title", -> {book_title}
       list.choice "Search by author", -> {book_author}
       # list.choce "Search by price" -> {book_price},

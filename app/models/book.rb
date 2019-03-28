@@ -37,13 +37,18 @@ class Book < ActiveRecord::Base
     books.each do |book|
       puts book.name
     end
+    main_menu_option
     # self.where("rating >= ?", 5).each do |book|
     #   puts book.name
     # end
   end
 
   def self.shows_by_alphabetical_order
-    self.order(:name)
+    # binding.pry
+    self.order(:name).each do |book|
+      puts book.name
+    end
+    # main_menu_option
   end
 
 
