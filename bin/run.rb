@@ -83,7 +83,7 @@ def main_menu_option
     main_menu_option = prompt.select("") do |menu|
     menu.choice "Today's Top Picks", -> {Book.popular_books}
     menu.choice "View All books", -> {all_current_books_list}
-    menu.choice "View Checkout Books", -> {return_book}
+    menu.choice "Return a Book", -> {return_book}
     # menu.choice "Create New List", -> {create_new_book_list}
     # # x.choice "Titles You Saved", -> {user_saved_books}
     # # x.choice "Update a Book", -> {update_book}
@@ -106,6 +106,7 @@ def main_menu_option
     end
     book = Book.find_by(name: book_name)
     checkout = Checkout.create(user_id: $current_user.id, book_id: book.id)
+    main_menu_option
   end
 
 
