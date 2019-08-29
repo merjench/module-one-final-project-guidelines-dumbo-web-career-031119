@@ -1,22 +1,24 @@
 
 require_relative '../config/environment'
 require 'pry'
-system 'clear'
+# system 'clear'
+require 'colorize'
 # $prompt = TTY::Prompt.new
 
 $current_user
 
 def graph
-  puts "       .--.                   .---.
-   .---|__|           .-.     |~~~|
-.--|===|--|_          |_|     |~~~|--.
-|  |===|  |'\     .---!~|  .--|   |--|
-|%%|   |  |.'\    |===| |--|%%|   |  |
+  puts "       .--.                 .---.
+   .---|__|         .-.     |~~~|
+.--|===|--|_        |_|     |~~~|--.
+|  |===|  |'\    .---!~|  .--|   |--|
+|%%|   |  |.'\   |===| |--|%%|   |  |
 |%%|   |  |\.'\   |   | |__|  |   |  |
 |  |   |  | \  \  |===| |==|  |   |  |
 |  |   |__|  \.'\ |   |_|__|  |~~~|__|
 |  |===|--|   \.'\|===|~|--|%%|~~~|--|
 ^--^---'--^    `-'`---^-^--^--^---'--'"
+# .colorize(:red)
 end
 
 puts "Welcome to YourBooks App!"
@@ -62,10 +64,14 @@ end
 
 def delete_account
   prompt = prompt_method
-  bio = prompt.ask('What is your new bio?')
-  $current_user.delete
-  # exit
-end
+  account = prompt.ask('Are you sure you want to delete your account?')
+      # do |y|
+    # y.choice "Yes", -> {good_bye}
+    $current_user.delete
+    # y.choice "No", -> {main_menu_option}
+  end
+# end
+
 
 def sign_in
   system 'clear'
@@ -96,8 +102,8 @@ def main_menu_option
     # menu.choice "Review a Book", -> {review_book}
     menu.choice "Update Your Bio", -> {update_bio}
     menu.choice "Checkout", -> {checkout}
-    menu.choice "Exit", -> {quit}
     menu.choice "Delete Your Account", -> {delete_account}
+    menu.choice "Exit", -> {quit}
     end
   end
 
@@ -133,12 +139,6 @@ def main_menu_option
     main_menu_option
   end
 
-    # def popular_books
-    #   Book.popular_books.each do |book|
-    #     puts book.name
-    #   end
-    # end
-
 
   def all_current_books_list
     prompt = prompt_method
@@ -151,58 +151,17 @@ def main_menu_option
     end
   end
 
-#   puts welcome_page
-# prompt = TTY::Prompt.new
-#     if welcome_page == 'Sign Up'
-#       if user.find_by(name: username) != nil
-#         puts "Sorry, username is taken. Try again."
-#       else current_user = User.create(name: username, email: email_address)
-#         puts "You are signed up. Enjoy!"
-#       end
-#     elsif welcome_page == 'Sign In'
-#         current_user == prompt.ask('What is your name?', default: ENV['USER'])
-#       # if current_user == nil
-#         puts "Welcome!"
-#         sleep(5)
-#         main_menu
-#       end
-#
-#
-#   def sign_in(name)
-#   $current_user = User.find_by(name: name)
-#   if $current_user == nil
-#     puts "Your username or password is incorrect. Please try again."
-#   end
-# end
-#
+  def find_book_by_title(name)
+    Book.all.find_by(name: name)
+  end
 
-#   #
-#   # hello_info = prompt.yes?('Would you like to view your current books?')
-#
-#   #
+  def book_title
+    prompt = prompt_method
+
+  end
 
 
 
-
-
-
-
-#
-#   current_user = nil
-#     if welcome_page == 'Sign Up'
-#       if user.find_by(name: username) != nil
-#         puts "Sorry, username is taken. Try again."
-#       else current_user = User.create(name: username, email: email_address)
-#         puts "You are signed up. Enjoy!"
-#       end
-#     elsif welcome_page == 'Sign Up'
-#       current_user == User.find_by(name: username)
-#       if current_user == nil
-#         puts "Your Username is incorrect. Please try again."
-#       end
-#     end
-#   end
-# #
 
 
 welcome
